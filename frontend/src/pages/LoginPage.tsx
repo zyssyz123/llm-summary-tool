@@ -49,19 +49,19 @@ const LoginPage: React.FC = () => {
     dispatch(loginStart());
     
     try {
-      // 使用API进行实际登录请求
+      // Use API to perform actual login request
       const response = await authApi.login(email, password);
       const token = response.data.access_token;
       
-      // 保存token并发送getMe请求
+      // Save token and send getMe request
       localStorage.setItem('token', token);
       
       try {
-        // 获取用户信息
+        // Get user info
         const userResponse = await authApi.getMe();
         const userData = userResponse.data;
         
-        // 使用Redux action保存用户信息和token
+        // Use Redux action to save user info and token
         dispatch(loginSuccess({
           user: {
             id: userData.id,

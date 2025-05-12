@@ -23,7 +23,7 @@ const HistoryPage: React.FC = () => {
       return;
     }
     
-    // 加载聊天历史
+    // Load chat history
     const loadChats = async () => {
       dispatch(loadChatsStart());
       try {

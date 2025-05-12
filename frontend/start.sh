@@ -1,5 +1,5 @@
 #!/bin/bash
 
-echo "启动前端开发服务器..."
+echo "Starting frontend development server..."
 npm start
 

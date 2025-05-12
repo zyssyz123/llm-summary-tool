@@ -1,32 +1,32 @@
 #!/bin/bash
 
-# 加载环境变量（如果.env文件存在）
+# Load environment variables (if .env file exists)
 if [ -f .env ]; then
-  echo "从.env文件加载环境变量..."
+  echo "Loading environment variables from .env file..."
   export $(grep -v '^#' .env | xargs)
 else
-  # 设置默认环境变量
-  echo "使用默认环境变量..."
+  # Set default environment variables
+  echo "Using default environment variables..."
   export DATABASE_URL="postgresql://postgres:postgres@localhost:5432/ai_content_assistant"
   export JWT_SECRET="homework"
   export JWT_ALGORITHM="HS256"
   export ACCESS_TOKEN_EXPIRE_MINUTES="60"
-  # 注意：OPENAI_API_KEY 应该从环境变量或 .env 文件中设置
+  # Note: OPENAI_API_KEY should be set in environment variables or .env file
   export APP_NAME="AI Content Assistant"
   export ENVIRONMENT="development"
   export ALLOWED_ORIGINS="http://localhost:3000"
 fi
 
-# 检查OPENAI_API_KEY是否已设置
+# Check if OPENAI_API_KEY is set
 if [ -z "$OPENAI_API_KEY" ]; then
-  echo "警告: OPENAI_API_KEY未设置。部分功能可能无法正常工作。"
-  echo "请在环境变量或.env文件中设置OPENAI_API_KEY。"
+  echo "Warning: OPENAI_API_KEY is not set. Some features may not work properly."
+  echo "Please set OPENAI_API_KEY in environment variables or .env file."
 fi
 
-# 安装依赖
-echo "安装依赖..."
+# Install dependencies
+echo "Installing dependencies..."
 pip install -r requirements.txt
 
-# 启动后端服务器
-echo "启动后端服务器..."
+# Start backend server
+echo "Starting backend server..."
 python run.py

@@ -8,7 +8,7 @@ from app.core.config import PROJECT_NAME, API_V1_PREFIX, ALLOWED_ORIGINS
 from app.db.database import Base, engine, get_db
 from app.models import user, chat
 
-# 创建数据库表 (如果不存在)
+# Create database tables (if they don't exist)
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(

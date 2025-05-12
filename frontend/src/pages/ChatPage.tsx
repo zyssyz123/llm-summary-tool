@@ -15,20 +15,20 @@ const LinkIcon = () => <span>🔗</span>;
 const formatAIResponse = (data: any): string => {
   let formattedResponse = '';
   
-  // 添加摘要
+  // Add summary
   if (data.summary) {
-    formattedResponse += `## 摘要\n${data.summary}\n\n`;
+    formattedResponse += `## Summary\n${data.summary}\n\n`;
   }
   
-  // 添加要点
+  // Add key points
   if (data.key_points && Array.isArray(data.key_points)) {
-    formattedResponse += `## 重要要点\n`;
+    formattedResponse += `## Key Points\n`;
     data.key_points.forEach((point: string, index: number) => {
       formattedResponse += `${index + 1}. ${point}\n`;
     });
   }
   
-  // 如果有response字段（可能用于其他API响应）
+  // If there is a response field (possibly for other API responses)
   if (data.response && !data.summary) {
     formattedResponse += data.response;
   }
@@ -56,7 +56,7 @@ const ChatPage: React.FC = () => {
       return;
     }
 
-    // 加载用户的聊天历史
+    // Load user chat history
     const loadChats = async () => {
       dispatch(loadChatsStart());
       try {
@@ -77,7 +77,7 @@ const ChatPage: React.FC = () => {
     }
   }, [dispatch, currentChat]);
 
-  // 创建新聊天
+  // Create new chat
   const createNewChat = async () => {
     try {
       const response = await chatApi.createChat('New Chat');
@@ -123,14 +123,14 @@ const ChatPage: React.FC = () => {
     };
     
     try {
-      // 发送用户消息
+      // Send user message
       await chatApi.sendMessage(currentChat.id, userMessage.content);
       dispatch(addMessage(userMessage));
       
-      // 处理PDF文件
+      // Process PDF file
       const response = await chatApi.processPdf(selectedFile);
       
-      // 添加AI回复
+      // Add AI reply
       const aiMessage: Message = {
         id: uuidv4(),
         content: formatAIResponse(response.data),
@@ -168,14 +168,14 @@ const ChatPage: React.FC = () => {
     };
     
     try {
-      // 发送用户消息
+      // Send user message
       await chatApi.sendMessage(currentChat.id, userMessage.content);
       dispatch(addMessage(userMessage));
       
-      // 处理URL
+      // Process URL
       const response = await chatApi.processUrl(url);
       
-      // 添加AI回复
+      // Add AI reply
       const aiMessage: Message = {
         id: uuidv4(),
         content: formatAIResponse(response.data),
@@ -204,16 +204,16 @@ const ChatPage: React.FC = () => {
     };
     
     try {
-      // 发送用户消息
+      // Send user message
       await chatApi.sendMessage(currentChat.id, userMessage.content);
       dispatch(addMessage(userMessage));
       setMessage('');
       setIsProcessing(true);
       
-      // 处理文本
+      // Process text
       const response = await chatApi.processText(userMessage.content);
       console.log(response)
-      // 添加AI回复
+      // Add AI reply
       const aiMessage: Message = {
         id: uuidv4(),
         content: formatAIResponse(response.data),
